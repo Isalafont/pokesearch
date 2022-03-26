@@ -4,7 +4,6 @@ import SearchBar from './SearchBar'
 import PokemonCard from './PokemonCard'
 import Spinner from './Spinner'
 
-
 class App extends React.Component {
   state = {
     isLoaded: false,
@@ -17,7 +16,7 @@ class App extends React.Component {
     const response = await getPokemon.get(term.toLowerCase())
     // console.log(response)
     this.setState({
-      // isLoaded: true,
+      isLoaded: true,
       pokemon: {
         name: response.data.name,
         id: response.data.id,
@@ -33,30 +32,30 @@ class App extends React.Component {
         stats: response.data.stats,
       },
     }),
-    (error) => this.setState({ isLoaded: true, errorMessage: err.message })
-    }
+      (err) => this.setState({ isLoaded: true, errorMessage: err.message })
   }
-  
-  renderContent(){
+
+  renderContent() {
     if (this.state.errorMessage && !this.state.pokemon) {
       return <div>Error: {this.state.errorMessage}</div>
     }
     if (!this.state.errorMessage && this.state.pokemon) {
-      return <div><PokemonCard poke={this.state.pokemon} />
+      return (
+        <div>
+          <PokemonCard poke={this.state.pokemon} />
         </div>
+      )
     }
     return <Spinner message="Catching your Pokemon!" />
   }
 
-  render(){
+  render() {
     return (
       <div className="w-full h-full">
         <div className="w-full h-full bg-gray-50">
           <SearchBar onSubmit={this.onSearchSubmit} />
         </div>
-        <div>
-          {this.renderContent()}
-        </div>
+        <div>{this.renderContent()}</div>
       </div>
     )
   }
