@@ -44,15 +44,15 @@ class App extends React.Component {
         </div>
       )
     }
-    if (!this.state.hasError && this.state.pokemon) {
+    if (!this.state.error && this.state.isLoaded) {
       return (
         <div>
           <PokemonCard poke={this.state.pokemon} />
         </div>
       )
     }
-    if (this.state.isLoaded === true && this.state.hasError === false) {
-      return <Spinner message="Catching your Pokemon!" />
+    if (!this.state.isLoaded && !this.state.error && !this.state.pokemon) {
+      return <Spinner message="We're catching your Pokemon!" />
     }
   }
 
