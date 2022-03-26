@@ -6,47 +6,54 @@ import Spinner from './Spinner'
 
 class App extends React.Component {
   state = {
-    isLoaded: false,
     pokemon: [],
-    errorMessage: '',
+    isLoaded: false,
+    // errorMessage: '',
+    error: null,
   }
 
   onSearchSubmit = async (term) => {
-    console.log(term)
-    const response = await getPokemon.get(term.toLowerCase())
-    // console.log(response)
-    this.setState({
-      isLoaded: true,
-      pokemon: {
-        name: response.data.name,
-        id: response.data.id,
-        height: response.data.height,
-        weight: response.data.weight,
-        picture: response.data.sprites.other.dream_world.front_default,
-        smPicture: response.data.sprites.front_default,
-        baseXp: response.data.base_experience,
-        type: response.data.types[0].type.name,
-        species: response.data.species.name,
-        movesPokemon: response.data.moves,
-        ability: response.data.abilities[1].name,
-        stats: response.data.stats,
-      },
-    }),
-      (err) => this.setState({ isLoaded: true, errorMessage: err.message })
+    // console.log(term)
+    try {
+      const response = await getPokemon.get(term.toLowerCase())
+      // console.log(response)
+      this.setState({
+        isLoaded: true,
+        pokemon: {
+          name: response.data.name,
+          id: response.data.id,
+          height: response.data.height,
+          weight: response.data.weight,
+          picture: response.data.sprites.other.dream_world.front_default,
+          smPicture: response.data.sprites.front_default,
+          baseXp: response.data.base_experience,
+          type: response.data.types[0].type.name,
+          species: response.data.species.name,
+        },
+      })
+    } catch (error) {
+      this.setState({ isLoaded: true, error })
+    }
   }
 
   renderContent() {
-    if (this.state.errorMessage && !this.state.pokemon) {
-      return <div>Error: {this.state.errorMessage}</div>
+    if (this.state.error) {
+      return (
+        <div className="flex justify-center m-12 font-light tracking-tight dark:text-gray-400 dark:text-white">
+          Oups, This pokemon is not in the pokedex
+        </div>
+      )
     }
-    if (!this.state.errorMessage && this.state.pokemon) {
+    if (!this.state.hasError && this.state.pokemon) {
       return (
         <div>
           <PokemonCard poke={this.state.pokemon} />
         </div>
       )
     }
-    return <Spinner message="Catching your Pokemon!" />
+    if (this.state.isLoaded === true && this.state.hasError === false) {
+      return <Spinner message="Catching your Pokemon!" />
+    }
   }
 
   render() {

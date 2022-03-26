@@ -3,8 +3,6 @@ import React from 'react'
 const PokemonCard = (props) => {
   console.log(props.poke)
   const poke = props.poke
-  const stats = props.poke.stats
-  console.log(stats)
 
   return (
     <div className="m-12 flex justify-center">
