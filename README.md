@@ -9,6 +9,7 @@ This app is using the [PokeApi](https://pokeapi.co/)
 
 - React App
 - Tailwind
+- Vercel
 
 ## Getting Started
 
