@@ -29,6 +29,7 @@ class App extends React.Component {
           baseXp: response.data.base_experience,
           type: response.data.types[0].type.name,
           species: response.data.species.name,
+          abilities: response.data.abilities,
         },
       })
     } catch (error) {

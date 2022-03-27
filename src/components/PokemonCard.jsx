@@ -3,6 +3,9 @@ import React from 'react'
 const PokemonCard = (props) => {
   console.log(props.poke)
   const poke = props.poke
+  const abilities = poke.abilities.map((item) => (
+    <li key={item.ability.name}>{item.ability.name}</li>
+  ))
 
   return (
     <div className="m-12 flex justify-center">
@@ -13,19 +16,28 @@ const PokemonCard = (props) => {
             {poke.name}
           </h5>
           <p className="mb-3 pt-2 capitalize font-light tracking-tight dark:text-gray-400 dark:text-white">
-            Type : {poke.type}
+            <span className="text-gray-900 font-normal">Type : </span>
+            {poke.type}
           </p>
           <p className="mb-3 capitalize font-light tracking-tight dark:text-gray-400 dark:text-white">
-            Specie : {poke.species}
+            <span className="text-gray-900 font-normal">Specie : </span>
+            {poke.species}
           </p>
           <p className="mb-3 font-light tracking-tight dark:text-gray-400 dark:text-white">
-            Experience : {poke.baseXp}
+            <span className="text-gray-900 font-normal">Experience :</span>
+            {poke.baseXp}
+          </p>
+          <ul className="mb-3 font-light tracking-tight dark:text-gray-400 dark:text-white">
+            <span className="text-gray-900 font-normal">Abilities :</span>
+            {abilities}
+          </ul>
+          <p className="mb-3 font-light tracking-tight dark:text-gray-400 dark:text-white">
+            <span className="text-gray-900 font-normal">Height :</span>
+            {poke.height}
           </p>
           <p className="mb-3 font-light tracking-tight dark:text-gray-400 dark:text-white">
-            Height : {poke.height}
-          </p>
-          <p className="mb-3 font-light tracking-tight dark:text-gray-400 dark:text-white">
-            Weight : {poke.weight}
+            <span className="text-gray-900 font-normal">Weight :</span>
+            {poke.weight}
           </p>
         </div>
       </div>
