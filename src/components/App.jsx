@@ -30,6 +30,7 @@ class App extends React.Component {
           type: response.data.types[0].type.name,
           species: response.data.species.name,
           abilities: response.data.abilities,
+          stats: response.data.stats,
         },
       })
     } catch (error) {

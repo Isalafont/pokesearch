@@ -4,7 +4,25 @@ const PokemonCard = (props) => {
   console.log(props.poke)
   const poke = props.poke
   const abilities = poke.abilities.map((item) => (
-    <li key={item.ability.name}>{item.ability.name}</li>
+    <ul>
+      <li key={item.ability.name}>{item.ability.name}</li>
+    </ul>
+  ))
+  const stats = poke.stats.map((item) => (
+    <ul>
+      <li key={item.base_stat}>
+        <span className="text-gray-900 font-normal">Base stats : </span>
+        {item.base_stat}
+      </li>
+      <li key={item.effort}>
+        <span className="text-gray-900 font-normal">Effort : </span>
+        {item.effort}
+      </li>
+      <li key={item.stat.name}>
+        <span className="text-gray-900 font-normal">Name : </span>
+        {item.stat.name}
+      </li>
+    </ul>
   ))
 
   return (
@@ -16,28 +34,32 @@ const PokemonCard = (props) => {
             {poke.name}
           </h5>
           <p className="mb-3 pt-2 capitalize font-light tracking-tight dark:text-gray-400 dark:text-white">
-            <span className="text-gray-900 font-normal">Type : </span>
+            <span className="text-gray-900 font-bold">Type : </span>
             {poke.type}
           </p>
           <p className="mb-3 capitalize font-light tracking-tight dark:text-gray-400 dark:text-white">
-            <span className="text-gray-900 font-normal">Specie : </span>
+            <span className="text-gray-900 font-bold">Specie : </span>
             {poke.species}
           </p>
           <p className="mb-3 font-light tracking-tight dark:text-gray-400 dark:text-white">
-            <span className="text-gray-900 font-normal">Experience :</span>
-            {poke.baseXp}
-          </p>
-          <ul className="mb-3 font-light tracking-tight dark:text-gray-400 dark:text-white">
-            <span className="text-gray-900 font-normal">Abilities :</span>
-            {abilities}
-          </ul>
-          <p className="mb-3 font-light tracking-tight dark:text-gray-400 dark:text-white">
-            <span className="text-gray-900 font-normal">Height :</span>
+            <span className="text-gray-900 font-bold">Height : </span>
             {poke.height}
           </p>
           <p className="mb-3 font-light tracking-tight dark:text-gray-400 dark:text-white">
-            <span className="text-gray-900 font-normal">Weight :</span>
+            <span className="text-gray-900 font-bold">Weight : </span>
             {poke.weight}
+          </p>
+          <p className="mb-3 font-light tracking-tight dark:text-gray-400 dark:text-white">
+            <span className="text-gray-900 font-bold">Experience : </span>
+            {poke.baseXp}
+          </p>
+          <p className="mb-3 font-light tracking-tight dark:text-gray-400 dark:text-white">
+            <span className="text-gray-900 font-bold">Abilities : </span>
+            {abilities}
+          </p>
+          <p className="mb-3 font-light tracking-tight dark:text-gray-400 dark:text-white">
+            <span className="text-gray-900 font-bold">Stats :</span>
+            {stats}
           </p>
         </div>
       </div>
