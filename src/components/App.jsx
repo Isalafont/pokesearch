@@ -6,19 +6,22 @@ import Spinner from './Spinner'
 
 class App extends React.Component {
   state = {
-    pokemon: [],
-    isLoaded: false,
-    // errorMessage: '',
+    pokemon: null,
+    isLoading: false,
     error: null,
   }
 
   onSearchSubmit = async (term) => {
-    // console.log(term)
     try {
+      this.setState({
+        pokemon: null,
+        isLoading: true,
+        error: null
+      })
       const response = await getPokemon.get(term.toLowerCase())
       // console.log(response)
       this.setState({
-        isLoaded: true,
+        isLoading: false,
         pokemon: {
           name: response.data.name,
           id: response.data.id,
@@ -32,9 +35,10 @@ class App extends React.Component {
           abilities: response.data.abilities,
           stats: response.data.stats,
         },
+        error: null
       })
     } catch (error) {
-      this.setState({ isLoaded: true, error })
+      this.setState({isLoading: false, pokemon: null, error})
     }
   }
 
@@ -46,15 +50,15 @@ class App extends React.Component {
         </div>
       )
     }
-    if (!this.state.error && this.state.isLoaded) {
+    if (this.state.pokemon) {
       return (
         <div>
-          <PokemonCard poke={this.state.pokemon} />
+          <PokemonCard poke={this.state.pokemon}/>
         </div>
       )
     }
-    if (!this.state.isLoaded && !this.state.error && !this.state.pokemon) {
-      return <Spinner message="We're catching your Pokemon!" />
+    if (this.state.isLoading) {
+      return <Spinner message="We're catching your Pokemon!"/>
     }
   }
 
@@ -62,7 +66,7 @@ class App extends React.Component {
     return (
       <div className="w-full h-full">
         <div className="w-full h-full bg-gray-50">
-          <SearchBar onSubmit={this.onSearchSubmit} />
+          <SearchBar onSubmit={this.onSearchSubmit}/>
         </div>
         <div>{this.renderContent()}</div>
       </div>
